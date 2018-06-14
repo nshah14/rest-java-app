@@ -1,8 +1,8 @@
 pipeline {
     agent { label 'build' }
-    // tools { 
-    //     maven 'maven 3.3.9' 
-    // }
+    tools { 
+        maven 'maven 3.5.3' 
+    }
     stages {
         stage ('Initialize') {
             steps {
