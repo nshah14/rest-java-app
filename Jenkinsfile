@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'build' }
     tools { 
-        jdk 'jdk1.8'
+        // jdk 'jdk1.8'
         maven 'maven 3.5.3' 
     }
     stages {
