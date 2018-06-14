@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent 'node001'
     // tools { 
     //     maven 'maven 3.3.9' 
     // }
