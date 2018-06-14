@@ -1,5 +1,5 @@
 pipeline {
-    agent 'node001'
+    agent { label 'build' }
     // tools { 
     //     maven 'maven 3.3.9' 
     // }
