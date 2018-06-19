@@ -94,6 +94,10 @@
                     <branchName>master</branchName>
                     <pushChanges>false</pushChanges>
                     <localCheckout>true</localCheckout>
+					  <checkModificationExcludes>
+						<checkModificationExclude>pom.xml</checkModificationExclude>
+						<checkModificationExclude>**</checkModificationExclude>
+					  </checkModificationExcludes>
                 </configuration>
             </plugin>
 		</plugins>
