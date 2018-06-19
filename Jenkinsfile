@@ -18,7 +18,8 @@ pipeline {
             steps {
                 echo 'This is a minimal pipeline.'
                  sh '''
-                    mvn clean install
+                    // mvn clean instal
+                    mvn deploy clean:release release:prepare release:perform
                 ''' 
             }
         }
