@@ -43,6 +43,23 @@
 		</dependency>
 
 	</dependencies>
+	
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Releases Repository</name>
+			<url>
+			http://62.60.42.82:8081/repository/maven-releases/
+			</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Snapshot Repository</name>
+			<url>
+			http://62.60.42.82:8081/repository/maven-snapshots/
+			</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<build>
 		<finalName>RESTfulExample</finalName>
