@@ -4,7 +4,7 @@
 	<groupId>com.naved.common</groupId>
 	<artifactId>RESTfulExample</artifactId>
 	<packaging>war</packaging>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>RESTfulExample Maven Webapp</name>
 	<url>http://62.60.42.82:8081/repository/maven-public/</url>
 
