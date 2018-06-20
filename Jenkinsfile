@@ -19,7 +19,7 @@ pipeline {
                          // mvn clean install
                 echo 'This is a minimal pipeline.'
                  sh '''
-                    mvn deploy release:clean release:prepare release:perform  war:war
+                    mvn deploy war:war release:clean release:prepare release:perform  
                 ''' 
             }
         }
