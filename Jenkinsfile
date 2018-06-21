@@ -17,9 +17,10 @@ pipeline {
         stage ('Build') {
             steps {
                          // mvn clean install
+                         //mvn deploy war:war release:clean release:prepare release:perform  
                 echo 'This is a minimal pipeline.'
                  sh '''
-                    mvn deploy war:war release:clean release:prepare release:perform  
+                    mvn clean install
                 ''' 
             }
         }
