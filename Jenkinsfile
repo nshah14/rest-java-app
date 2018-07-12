@@ -29,12 +29,17 @@ pipeline {
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
-                parameters {
-                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                }
+                // parameters {
+                //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+                // }
             }
             steps {
-                echo "Hello, ${PERSON}, nice to meet you."
+                echo "Hello, execute, nice to meet you."
+                echo 'This is a minimal pipeline.'
+                 sh '''
+                    mvn clean install
+
+                ''' 
             }
         }
     }
