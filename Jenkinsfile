@@ -21,7 +21,6 @@ pipeline {
                 echo 'This is a minimal pipeline.'
                  sh '''
                     mvn clean install
-                    cp ~/workspace/pipeline-java-rest-app/target/RESTfulExample.war 
 
                 ''' 
             }
