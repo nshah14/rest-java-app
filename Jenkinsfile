@@ -27,8 +27,8 @@ pipeline {
         }
         stage('Promote Build') {
             input {
-                message "Should we continue?"
-                ok "Yes, we should."
+                message "Do you want to release"
+                ok "Yes"
                 // parameters {
                 //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
                 // }
