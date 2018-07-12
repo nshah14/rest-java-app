@@ -25,7 +25,7 @@ pipeline {
                 ''' 
             }
         }
-        stage('Example') {
+        stage('Promote Build') {
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
