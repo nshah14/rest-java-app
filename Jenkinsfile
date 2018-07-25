@@ -1,5 +1,5 @@
 pipeline {
-    def answer
+ 
     agent { label 'build' }
     tools { 
         jdk 'jdk'
