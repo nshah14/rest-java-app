@@ -33,7 +33,9 @@ pipeline {
                 echo "will keep cluster? $answer"
                 echo 'done'
             }
-               def userWantToKeepCluster() {
+               
+        }
+        def userWantToKeepCluster() {
                 try {
                     timeout(time: 1, unit: 'MINUTES') {
                         def keep = input message: 'Keep cluster?', 
@@ -44,7 +46,6 @@ pipeline {
                     return false
                 }
             }
-        }
 
         // stage('Promote Build') {
         //     input {
