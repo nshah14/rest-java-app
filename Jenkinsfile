@@ -46,7 +46,7 @@ pipeline {
                   def  answer = userWantToKeepCluster()
                   echo "will keep cluster? $answer()"
             
-                     if(answer
+                     if(answer)
                         {
                             sh '''
                             mvn clean install
