@@ -25,22 +25,40 @@ pipeline {
                 ''' 
             }
         }
-        stage('Promote Build') {
-            input {
-                message "Do you want to release"
-                ok "Yes"
-                // parameters {
-                //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                // }
-            }
-            steps {
-                echo "Hello, execute, nice to meet you."
-                echo 'This is a minimal pipeline.'
-                 sh '''
-                    mvn clean install
 
-                ''' 
-            }
+        stage('UA') {
+            echo 'start'
+            def answer = userWantToKeepCluster()
+            echo "will keep cluster? $answer"
+            echo 'done'
         }
+        def userWantToKeepCluster() {
+        try {
+            timeout(time: 1, unit: 'MINUTES') {
+                def keep = input message: 'Keep cluster?', 
+                            parameters: [booleanParam(defaultValue: false, description: 'Make sure to destroy cluster manually after you done', name: 'keepCluster')]
+                return keep
+            }
+        } catch(e) {
+            return false
+        }
+      }
+        // stage('Promote Build') {
+        //     input {
+        //         message "Do you want to release"
+        //         ok "Yes"
+        //         // parameters {
+        //         //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+        //         // }
+        //     }
+        //     steps {
+        //         echo "Hello, execute, nice to meet you."
+        //         echo 'This is a minimal pipeline.'
+        //          sh '''
+        //             mvn clean install
+
+        //         ''' 
+        //     }
+        // }
     }
 }
