@@ -1,4 +1,5 @@
 pipeline {
+    def answer
     agent { label 'build' }
     tools { 
         jdk 'jdk'
@@ -27,12 +28,13 @@ pipeline {
         }
 
         stage('UA') {
-            
+            steps{
                 echo 'start'
-                def answer = userWantToKeepCluster()
+                answer = userWantToKeepCluster()
                 echo "will keep cluster? $answer"
                 echo 'done'
-           
+            }
+               
         }
 
         // stage('Promote Build') {
