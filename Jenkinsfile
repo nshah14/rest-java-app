@@ -33,6 +33,17 @@ pipeline {
                 echo "will keep cluster? $answer"
                 echo 'done'
             }
+               def userWantToKeepCluster() {
+                try {
+                    timeout(time: 1, unit: 'MINUTES') {
+                        def keep = input message: 'Keep cluster?', 
+                                    parameters: [booleanParam(defaultValue: false, description: 'Make sure to destroy cluster manually after you done', name: 'keepCluster')]
+                        return keep
+                    }
+                } catch(e) {
+                    return false
+                }
+            }
         }
 
         // stage('Promote Build') {
@@ -53,16 +64,6 @@ pipeline {
         //     }
         // }
     }
-    def userWantToKeepCluster() {
-        try {
-            timeout(time: 1, unit: 'MINUTES') {
-                def keep = input message: 'Keep cluster?', 
-                            parameters: [booleanParam(defaultValue: false, description: 'Make sure to destroy cluster manually after you done', name: 'keepCluster')]
-                return keep
-            }
-        } catch(e) {
-            return false
-        }
-      }
+ 
 }
         
