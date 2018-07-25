@@ -43,10 +43,11 @@ pipeline {
                             return false
                         }
                 }
-                    answer = userWantToKeepCluster()
+                  def  answer = userWantToKeepCluster()
+                  echo "will keep cluster? $answer()"
                 }
                 
-                echo "will keep cluster? $answer()"
+                
                 echo 'done'
             }
                
