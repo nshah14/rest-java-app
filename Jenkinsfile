@@ -55,10 +55,6 @@ pipeline {
 
                             ''' 
                         }
-                    else if(answer == "timeout")
-                    {
-                            error('Stopping early…')
-                    }
                     else{
                         echo "Build is aborted, User does not want to deploy artifact"
                     }
