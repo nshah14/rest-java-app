@@ -31,15 +31,18 @@ pipeline {
             steps{
                 echo 'start'
                 def answer = {
-                try {
-                    timeout(time: 1, unit: 'MINUTES') {
-                        def keep = input message: 'Keep cluster?', 
-                                    parameters: [booleanParam(defaultValue: false, description: 'Make sure to destroy cluster manually after you done', name: 'keepCluster')]
-                        return keep
+                    stage('answer')
+                    { 
+                        try {
+                            timeout(time: 1, unit: 'MINUTES') {
+                                def keep = input message: 'Keep cluster?', 
+                                            parameters: [booleanParam(defaultValue: false, description: 'Make sure to destroy cluster manually after you done', name: 'keepCluster')]
+                                return keep
+                            }
+                        } catch(e) {
+                            return false
+                        }
                     }
-                } catch(e) {
-                    return false
-                }
                 }
                 // def answer = userWantToKeepCluster()
                 echo "will keep cluster? $answer()"
