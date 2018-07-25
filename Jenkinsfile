@@ -45,6 +45,7 @@ pipeline {
                 }
                   def  answer = userWantToKeepCluster()
                   echo "will keep cluster? $answer()"
+                }
                   steps{
                      if($answer)
                         {
@@ -54,7 +55,7 @@ pipeline {
                             ''' 
                         }
                   }
-                }
+                
                 
                 
                 echo 'done'
