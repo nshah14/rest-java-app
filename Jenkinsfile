@@ -35,13 +35,14 @@ pipeline {
                     
                         try {
                             timeout(time: 1, unit: 'MINUTES') {
-                                def keep = input message: 'Keep cluster?', 
+                                def keep = input message: 'Deploy poa-bal ?', 
                                             parameters: [booleanParam(defaultValue: true, description: 'Make sure to destroy cluster manually after you done', name: 'keepCluster')]
                                 return keep
                             }
                         } catch(e) {
                             echo "$e"
                             return "timeout"
+                           
                         }
                 }
                   def  answer = userWantToKeepCluster()
