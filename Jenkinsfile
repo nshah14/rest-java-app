@@ -40,7 +40,7 @@ pipeline {
                                 return keep
                             }
                         } catch(e) {
-                            return timeout
+                            return "timeout"
                         }
                 }
                   def  answer = userWantToKeepCluster()
@@ -53,7 +53,7 @@ pipeline {
 
                             ''' 
                         }
-                    else if(answer == 'timeout'){
+                    else if(answer == "timeout"){
                             error('Stopping early…')
                         }
                     else{
