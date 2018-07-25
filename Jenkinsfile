@@ -40,22 +40,25 @@ pipeline {
                                 return keep
                             }
                         } catch(e) {
+                            echo "$e"
                             return "timeout"
                         }
                 }
                   def  answer = userWantToKeepCluster()
                   echo "will keep cluster? $answer()"
             
-                     if(answer)
+                    if(answer)
                         {
+                            echo "answer is $answer"
                             sh '''
                             mvn clean install
 
                             ''' 
                         }
-                    else if(answer == "timeout"){
+                    else if(answer == "timeout")
+                    {
                             error('Stopping early…')
-                        }
+                    }
                     else{
                         echo "Build is aborted"
                     }
