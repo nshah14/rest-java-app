@@ -30,9 +30,9 @@ pipeline {
         stage('UA') {
             steps{
                 echo 'start'
+                script{
                 def answer = {
-                    stage('answer')
-                    { 
+                    
                         try {
                             timeout(time: 1, unit: 'MINUTES') {
                                 def keep = input message: 'Keep cluster?', 
@@ -42,7 +42,8 @@ pipeline {
                         } catch(e) {
                             return false
                         }
-                    }
+                }
+                    
                 }
                 // def answer = userWantToKeepCluster()
                 echo "will keep cluster? $answer()"
