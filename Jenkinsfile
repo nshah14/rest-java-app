@@ -40,9 +40,8 @@ pipeline {
                                 return keep
                             }
                         } catch(e) {
-                            echo "$e"
-                            return "timeout"
-                           
+                            echo "Build Failed ::: User aborted build or its timed out"
+                            throw e
                         }
                 }
                   def  answer = userWantToKeepCluster()
@@ -61,7 +60,7 @@ pipeline {
                             error('Stopping early…')
                     }
                     else{
-                        echo "Build is aborted"
+                        echo "Build is aborted, User does not want to deploy artifact"
                     }
                   }
                 
