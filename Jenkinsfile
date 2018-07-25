@@ -31,7 +31,7 @@ pipeline {
             steps{
                 echo 'start'
                 script{
-                def answer = {
+                def userWantToKeepCluster = {
                     
                         try {
                             timeout(time: 1, unit: 'MINUTES') {
@@ -43,9 +43,9 @@ pipeline {
                             return false
                         }
                 }
-                    
+                     def answer = userWantToKeepCluster()
                 }
-                // def answer = userWantToKeepCluster()
+                
                 echo "will keep cluster? $answer()"
                 echo 'done'
             }
