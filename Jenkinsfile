@@ -27,13 +27,12 @@ pipeline {
         }
 
         stage('UA') {
-            steps{
+            
                 echo 'start'
                 def answer = userWantToKeepCluster()
                 echo "will keep cluster? $answer"
                 echo 'done'
-            }
-               
+           
         }
 
         // stage('Promote Build') {
