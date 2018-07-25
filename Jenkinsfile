@@ -1,6 +1,6 @@
 pipeline {
 
-    agent { label 'build' }
+    agent any
     tools { 
         jdk 'jdk'
         maven 'maven 3.5.3' 
@@ -27,7 +27,7 @@ pipeline {
             }
         }
 
-        stage('UA') {
+        stage('Deploy To Integration') {
             steps{
                 echo 'start'
                 script{
