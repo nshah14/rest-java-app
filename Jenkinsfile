@@ -36,7 +36,7 @@ pipeline {
                         try {
                             timeout(time: 1, unit: 'MINUTES') {
                                 def keep = input message: 'Deploy poa-bal ?', 
-                                            parameters: [booleanParam(defaultValue: true, description: 'Make sure to destroy cluster manually after you done', name: 'keepCluster')]
+                                            parameters: [booleanParam(defaultValue: true, description: 'Make sure to destroy cluster manually after you done', name: 'Deploy poa-bal')]
                                 return keep
                             }
                         } catch(e) {
