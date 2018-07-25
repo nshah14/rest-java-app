@@ -40,7 +40,7 @@ pipeline {
                                 return keep
                             }
                         } catch(e) {
-                            return false
+                            return timeout
                         }
                 }
                   def  answer = userWantToKeepCluster()
@@ -53,9 +53,12 @@ pipeline {
 
                             ''' 
                         }
-                        else{
-                            echo "Build is aborted"
+                    else if(answer == 'timeout'){
+                            error('Stopping early…')
                         }
+                    else{
+                        echo "Build is aborted"
+                    }
                   }
                 
                 
