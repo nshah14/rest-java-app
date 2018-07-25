@@ -53,8 +53,7 @@ pipeline {
         //     }
         // }
     }
-}
-        def userWantToKeepCluster() {
+    def userWantToKeepCluster() {
         try {
             timeout(time: 1, unit: 'MINUTES') {
                 def keep = input message: 'Keep cluster?', 
@@ -65,3 +64,5 @@ pipeline {
             return false
         }
       }
+}
+        
