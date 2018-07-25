@@ -53,6 +53,9 @@ pipeline {
 
                             ''' 
                         }
+                        else{
+                            echo "Build is aborted"
+                        }
                   }
                 
                 
