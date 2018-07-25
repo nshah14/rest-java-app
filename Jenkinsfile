@@ -1,5 +1,5 @@
 pipeline {
- 
+    def answer
     agent { label 'build' }
     tools { 
         jdk 'jdk'
@@ -43,7 +43,7 @@ pipeline {
                             return false
                         }
                 }
-                     def answer = userWantToKeepCluster()
+                    answer = userWantToKeepCluster()
                 }
                 
                 echo "will keep cluster? $answer()"
