@@ -20,7 +20,11 @@ pipeline {
                          // mvn clean install
                          //mvn deploy war:war release:clean release:prepare release:perform  
                 echo 'This is a minimal pipeline.'
-                ehco " Project version is ${POM_VERSION}"
+                script{
+                    def pom = readMavenPom file: 'pom.xml'
+                    echo " Project version is ${pom.version}"
+                }
+               
                  sh '''
                     mvn clean install
 
