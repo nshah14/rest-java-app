@@ -21,7 +21,7 @@ pipeline {
                          //mvn deploy war:war release:clean release:prepare release:perform  
                 echo 'This is a minimal pipeline.'
                 script{
-                    def pom = readMavenPom file: 'pom.xml'
+                    def pom = readMavenPom('pom.xml')
                     echo " Project version is ${pom.version}"
                 }
                
