@@ -1,6 +1,11 @@
 pipeline {
 
     agent { label 'build' }
+    environment {
+        //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
+        IMAGE = readMavenPom().getArtifactId()
+        VERSION = readMavenPom().getVersion()
+    }
     tools { 
         jdk 'jdk'
         maven 'maven 3.5.3' 
@@ -20,10 +25,9 @@ pipeline {
                          // mvn clean install
                          //mvn deploy war:war release:clean release:prepare release:perform  
                 echo 'This is a minimal pipeline.'
-                script{
-                    def pom = readMavenPom('pom.xml')
-                    echo " Project version is ${pom.version}"
-                }
+              
+                echo " Project version is ${VERSION}"
+  
                
                  sh '''
                     mvn clean install
