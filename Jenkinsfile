@@ -20,7 +20,7 @@ pipeline {
                          // mvn clean install
                          //mvn deploy war:war release:clean release:prepare release:perform  
                 echo 'This is a minimal pipeline.'
-                ehco " Project version is ${project.version}"
+                ehco " Project version is ${POM_VERSION}"
                  sh '''
                     mvn clean install
 
