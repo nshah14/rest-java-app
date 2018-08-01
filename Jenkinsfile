@@ -45,8 +45,12 @@ pipeline {
                     mvn clean install deploy
 
                 ''' 
-                NEW_VERSION = readMavenPom().getVersion()
-                echo " Project new  version is ${NEW_VERSION}"
+                script{
+                    environment {
+                        NEW_VERSION = readMavenPom().getVersion()
+                        echo " Project new  version is ${NEW_VERSION}"
+                    }
+                }
             }
         }
 
