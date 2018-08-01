@@ -28,6 +28,7 @@ pipeline {
                 echo 'This is a minimal pipeline.'
               
                 echo " Project version is ${VERSION}"
+                echo "Artifact id is ${IMAGE}"
   
                
                  sh '''
