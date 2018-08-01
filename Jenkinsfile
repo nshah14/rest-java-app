@@ -37,7 +37,7 @@ pipeline {
                 echo "Build release version is ${BUILD_RELEASE_VERSION}"
                 echo " is it snapshot ${IS_SNAPSHOT}"
                 echo " is GIT_TAG_COMMIT ${GIT_TAG_COMMIT}"
-                echo " Project new  version is ${NEW_VERSION}"
+               
   
                
                  sh '''
@@ -45,6 +45,8 @@ pipeline {
                     mvn clean install deploy
 
                 ''' 
+                NEW_VERSION = readMavenPom().getVersion()
+                echo " Project new  version is ${NEW_VERSION}"
             }
         }
 
