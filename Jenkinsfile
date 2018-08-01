@@ -1,6 +1,6 @@
 pipeline {
 
-    agent any
+    agent { label 'build' }
     tools { 
         jdk 'jdk'
         maven 'maven 3.5.3' 
