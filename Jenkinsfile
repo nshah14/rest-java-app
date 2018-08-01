@@ -6,9 +6,11 @@ pipeline {
         //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
         IMAGE = readMavenPom().getArtifactId()
         VERSION = readMavenPom().getVersion()
-        BUILD_RELEASE_VERSION = readMavenPom().getVersion().replace("-SNAPSHOT", "1.1")
+        BUILD_RELEASE_VERSION = readMavenPom().getVersion().replace("-SNAPSHOT", ".1.1")
         IS_SNAPSHOT = readMavenPom().getVersion().endsWith("-SNAPSHOT")
         GIT_TAG_COMMIT = sh(script: 'git describe --tags --always', returnStdout: true).trim()
+        writeMavenPom().setVersion("4.1.2")
+        NEW_VERSION = readMavenPom().getVersion()
     }
     tools { 
         jdk 'jdk'
@@ -35,6 +37,7 @@ pipeline {
                 echo "Build release version is ${BUILD_RELEASE_VERSION}"
                 echo " is it snapshot ${IS_SNAPSHOT}"
                 echo " is GIT_TAG_COMMIT ${GIT_TAG_COMMIT}"
+                echo " Project new  version is ${NEW_VERSION}"
   
                
                  sh '''
