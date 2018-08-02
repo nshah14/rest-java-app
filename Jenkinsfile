@@ -42,7 +42,7 @@ pipeline {
                
                  sh '''
                     mvn versions:set -DnewVersion=1.0.1
-                    mvn clean install deploy
+                    mvn clean install
 
                 ''' 
                 script{
@@ -78,7 +78,7 @@ pipeline {
                         {
                             echo "answer is $answer"
                             sh '''
-                            mvn clean install
+                             mvn  deploy
 
                             ''' 
                         }
