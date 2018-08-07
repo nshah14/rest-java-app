@@ -55,6 +55,7 @@ pipeline {
         }
 
         stage('Deploy To Integration') {
+            when { tag "release-*" }
             steps{
                 echo 'start'
                 script{
@@ -77,7 +78,7 @@ pipeline {
                     if(answer)
                         {
                             echo "answer is $answer"
-                            when { tag "release-*" }
+                            
                             sh '''
                              mvn  deploy
 
