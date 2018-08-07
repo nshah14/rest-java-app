@@ -42,6 +42,7 @@ pipeline {
   
                
                  sh '''
+                    git tag -a release-v1.4 -m "my release version 1.4"
                     mvn versions:set -DnewVersion=1.0.1
                     mvn clean install
 
