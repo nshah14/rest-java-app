@@ -77,6 +77,7 @@ pipeline {
                     if(answer)
                         {
                             echo "answer is $answer"
+                            when { tag "release-*" }
                             sh '''
                              mvn  deploy
 
