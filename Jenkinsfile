@@ -20,6 +20,7 @@ pipeline {
         stage ('Initialize') {
             steps {
                 sh '''
+                    echo "git branch"
                     echo "PATH = ${PATH}"
                     echo "M2_HOME = ${M2_HOME}"
                 ''' 
