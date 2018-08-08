@@ -41,7 +41,8 @@ pipeline {
   
                
                  sh '''
-                    mvn versions:set -DnewVersion=1.0.1
+                   
+                    mvn versions:set -DnewVersion=1.0.2
                     mvn clean install
 
                 ''' 
