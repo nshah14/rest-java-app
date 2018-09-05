@@ -84,6 +84,8 @@ pipeline {
                         echo response.data.toString()
                         def transitions = jiraGetIssueTransitions idOrKey: 'TEST-1'
                         echo transitions.data.toString()
+                        def transitionInput = [ transition: [ name: 'Done'] ]
+                        jiraTransitionIssue idOrKey: 'TEST-2', input: transitionInput, site: 'JIRA'
                  }
             }
         }
