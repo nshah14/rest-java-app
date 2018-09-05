@@ -75,7 +75,7 @@ pipeline {
                         summary: 'New JIRA Created from Jenkins.',
                         description: 'New JIRA Created from Jenkins.',
                         customfield_1000: 'customValue',
-                        status; 'Done'
+                        status: 'Done'
                         // id or name must present for issuetype.
                         //issuetype: [id: '3']
                         ]]
