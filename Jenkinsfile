@@ -56,6 +56,7 @@ pipeline {
         }
         
         stage('JIRA') {
+            steps{
             def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = 'TEST-2'"
             def issues = searchResults.data.issues
             for (i = 0; i <issues.size(); i++) {
@@ -63,6 +64,7 @@ pipeline {
                                                         project: "TEST"]
             def testIssue = [fields: [fixVersions: [fixVersion.data]]]
             response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
+            }
             }
         }
 
