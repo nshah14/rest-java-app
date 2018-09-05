@@ -75,10 +75,12 @@ pipeline {
                         summary: 'New JIRA Created from Jenkins.',
                         description: 'New JIRA Created from Jenkins.',
                         customfield_1000: 'customValue',
+                        status; 'Done'
                         // id or name must present for issuetype.
-                        issuetype: [id: '3']]]
+                        //issuetype: [id: '3']
+                        ]]
 
-                        response = jiraEditIssue idOrKey: 'TEST-03', issue: testIssue
+                        response = jiraEditIssue idOrKey: 'TEST-2', issue: testIssue
 
                         echo response.successful.toString()
                         echo response.data.toString()
