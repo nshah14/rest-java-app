@@ -11,6 +11,7 @@ pipeline {
         GIT_TAG_COMMIT = sh(script: 'git describe --tags --always', returnStdout: true).trim()
         // writeMavenPom().setVersion("4.1.2")
         NEW_VERSION = readMavenPom().getVersion()
+        JIRA_SITE='http://62.60.42.188:8080'
     }
     tools { 
         jdk 'jdk'
