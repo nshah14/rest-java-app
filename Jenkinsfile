@@ -12,6 +12,8 @@ pipeline {
         // writeMavenPom().setVersion("4.1.2")
         NEW_VERSION = readMavenPom().getVersion()
         JIRA_SITE='JIRA'
+        GIT_COMMIT_MSG = sh(script: 'git log --oneline -1 ${GIT_COMMIT}')
+        GIT_COMMIT_AUTHOR = shs(script: 'git log --format="medium" -1 ${GIT_COMMIT}')
         // commitHash = checkout(scm).GIT_COMMIT?
         // sh "echo 'Commit hash is: ${commitHash}'"
     }
@@ -40,7 +42,8 @@ pipeline {
                 echo "Build release version is ${BUILD_RELEASE_VERSION}"
                 echo " is it snapshot ${IS_SNAPSHOT}"
                 echo " is GIT_TAG_COMMIT ${GIT_TAG_COMMIT}"
-                sh "echo 'Commit hash is: ${GIT_COMMIT}'"
+                echo "Commit hash is: ${GIT_COMMIT_MSG}"
+                echo "author hash is: ${GIT_COMMIT_AUTHOR}"
   
                
                  sh '''
