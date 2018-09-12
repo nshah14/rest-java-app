@@ -61,15 +61,14 @@ pipeline {
                  script{
                         def serverInfo = jiraGetServerInfo()
                         echo serverInfo.data.toString()
-                        def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = 'TEST-3'"
-                        def issues = searchResults.data.issues
-                        for (i = 0; i <issues.size(); i++) {
-                            def fixVersion = jiraEditVersion version: [name: "new-fix-version-3.0",
-                            //                                             project: "TEST"]
-                            def testIssue = [fields: [fixVersions: [fixVersion.data]]]
-                            // def testIssue = [fields: [fixVersions: [name: "new-fix-version-3.0", project: "TEST"]]]
-                            response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
-                        }
+                        // def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = 'TEST-3'"
+                        // def issues = searchResults.data.issues
+                        // for (i = 0; i <issues.size(); i++) {
+                        //     def fixVersion = jiraNewVersion version: [name: "new-fix-version-3.0",
+                        //                                                 project: "TEST"]
+                        //     def testIssue = [fields: [fixVersions: [fixVersion.data]]]
+                        //     response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
+                        // }
 
                         // def testIssue = [fields: [ // id or key must present for project.
                         // project: [id: '10000'],
