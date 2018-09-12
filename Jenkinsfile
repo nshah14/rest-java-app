@@ -102,11 +102,11 @@ pipeline {
                                         // def fixVersion =  jiraNewVersion version: [name: "new-fix-version-5.0",
                                         //                                 project: "TEST"]
                                         // echo " version : "+fixVersion.data
-                                        def testIssue = [fields: [fixVersions: [{name='new-fix-version-5.0', project='TEST'}]]]
+                                    def testIssue = [fields: [fixVersions: [{name="new-fix-version-5.0", project="TEST"}]]]
 
-                                    def fixVersion = [name: "new-fix-version-3.0",
-                                                                                project: "TEST"]
-                                    def testIssue = [fields: [fixVersions: [name: "new-fix-version-3.0", project: "TEST" ]]]
+                                    // def fixVersion = [name: "new-fix-version-3.0",
+                                    //                                             project: "TEST"]
+                                    // def testIssue = [fields: [fixVersions: [name: "new-fix-version-3.0", project: "TEST" ]]]
                                     response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
                                 }
                                 // def transitions = jiraGetIssueTransitions idOrKey: "${it}"
