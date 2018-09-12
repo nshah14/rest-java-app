@@ -101,7 +101,7 @@ pipeline {
                                 for (i = 0; i <issues.size(); i++) {
                                     def fixVersion = [name: "new-fix-version-3.0",
                                                                                 project: "TEST"]
-                                    def testIssue = [fields: [fixVersions: [{'add': {'name': 'new-fix-version-3.0'}}]]]
+                                    def testIssue = [fields: [fixVersions: [ {'name': 'new-fix-version-3.0'}]]]
                                     response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
                                 }
                                 def transitions = jiraGetIssueTransitions idOrKey: "${it}"
