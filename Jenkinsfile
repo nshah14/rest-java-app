@@ -84,7 +84,7 @@ pipeline {
                         // enscho response.data.toString()
                         def transitions = jiraGetIssueTransitions idOrKey: 'TEST-3'
                         echo transitions.data.toString()
-                        def transitionInput = [ transition: [ name: 'Done'] ]
+                        def transitionInput = [ transition: [ id: '31'] ]
                         jiraTransitionIssue idOrKey: 'TEST-3', input: transitionInput, site: 'JIRA'
                  }
             }
