@@ -90,11 +90,16 @@ pipeline {
                         // echo response.successful.toString()
                         // enscho response.data.toString()
                         
+               
+                        println "${GIT_COMMIT_PRETTY}".tokenize("-")
+                        "${GIT_COMMIT_PRETTY}".tokenize(",").each {
+                                println "Number ${it}"
+                                def transitions = jiraGetIssueTransitions idOrKey: "${it}"
+                                echo transitions.data.toString()
+                                def transitionInput = [ transition: [ id: '31'] ]
+                                jiraTransitionIssue idOrKey: "${it}", input: transitionInput, site: 'JIRA'
+                            }
                         
-                        def transitions = jiraGetIssueTransitions idOrKey: "${GIT_COMMIT_PRETTY}"
-                        echo transitions.data.toString()
-                        def transitionInput = [ transition: [ id: '31'] ]
-                        jiraTransitionIssue idOrKey: "${GIT_COMMIT_PRETTY}", input: transitionInput, site: 'JIRA'
                  }
             }
         }
