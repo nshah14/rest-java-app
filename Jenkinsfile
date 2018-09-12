@@ -13,7 +13,7 @@ pipeline {
         NEW_VERSION = readMavenPom().getVersion()
         JIRA_SITE='JIRA'
         GIT_COMMIT_MSG = sh(script: 'git log --oneline -1 ${GIT_COMMIT}')
-        GIT_COMMIT_AUTHOR = shs(script: 'git log --format="medium" -1 ${GIT_COMMIT}')
+        GIT_COMMIT_AUTHOR = sh(script: 'git log --format="medium" -1 ${GIT_COMMIT}')
         // commitHash = checkout(scm).GIT_COMMIT?
         // sh "echo 'Commit hash is: ${commitHash}'"
     }
