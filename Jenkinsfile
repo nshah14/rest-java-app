@@ -91,10 +91,10 @@ pipeline {
                         // enscho response.data.toString()
                         
                         
-                        def transitions = jiraGetIssueTransitions idOrKey: '${GIT_COMMIT_PRETTY}'
+                        def transitions = jiraGetIssueTransitions idOrKey: "${GIT_COMMIT_PRETTY}"
                         echo transitions.data.toString()
                         def transitionInput = [ transition: [ id: '31'] ]
-                        jiraTransitionIssue idOrKey: '${GIT_COMMIT_PRETTY}', input: transitionInput, site: 'JIRA'
+                        jiraTransitionIssue idOrKey: "${GIT_COMMIT_PRETTY}", input: transitionInput, site: 'JIRA'
                  }
             }
         }
