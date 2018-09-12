@@ -61,14 +61,13 @@ pipeline {
                  script{
                         def serverInfo = jiraGetServerInfo()
                         echo serverInfo.data.toString()
-                        // def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = 'TEST-3'"
-                        // def issues = searchResults.data.issues
-                        // for (i = 0; i <issues.size(); i++) {
-                        //     def fixVersion = jiraNewVersion version: [name: "new-fix-version-3.0",
-                        //                                                 project: "TEST"]
-                        //     def testIssue = [fields: [fixVersions: [fixVersion.data]]]
-                        //     response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
-                        // }
+                        def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = 'TEST-3'"
+                        def issues = searchResults.data.issues
+                        for (i = 0; i <issues.size(); i++) {
+                            def fixVersion =[name: "new-fix-version-3.0", project: "TEST"]
+                            def testIssue = [fields: [fixVersions: [fixVersion.data]]]
+                            response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
+                        }
 
                         // def testIssue = [fields: [ // id or key must present for project.
                         // project: [id: '10000'],
@@ -85,7 +84,7 @@ pipeline {
                         def transitions = jiraGetIssueTransitions idOrKey: 'TEST-2'
                         echo transitions.data.toString()
                         def transitionInput = [ transition: [ id: '31'] ]
-                        jiraTransitionIssue idOrKey: 'TEST-2', input: transitionInput, site: 'JIRA'
+                        jiraTransitionIssue idOrKey: 'TEST-4', input: transitionInput, site: 'JIRA'
                  }
             }
         }
