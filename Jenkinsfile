@@ -42,7 +42,7 @@ pipeline {
                 echo "Build release version is ${BUILD_RELEASE_VERSION}"
                 echo " is it snapshot ${IS_SNAPSHOT}"
                 echo " is GIT_TAG_COMMIT ${GIT_TAG_COMMIT}"
-                echo "Commit hash is: ${GIT_COMMIT_MSG}"
+                echo "Commit msg is: ${GIT_COMMIT}"
                 echo "author hash is: ${GIT_COMMIT_AUTHOR}"
   
                
