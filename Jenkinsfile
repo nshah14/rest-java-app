@@ -67,7 +67,8 @@ pipeline {
                             // def fixVersion = jiraEditVersion version: [name: "new-fix-version-3.0",
                             //                                             project: "TEST"]
                             // def testIssue = [fields: [fixVersions: [fixVersion.data]]]
-                            def testIssue = [fields: [fixVersions: 'new-fix-version-3.0']]
+                            def testIssue = [fields: [fixVersions: [name: "new-fix-version-3.0",
+                                                                         project: "TEST"]]]
                             response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
                         }
 
