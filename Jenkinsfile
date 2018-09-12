@@ -14,7 +14,7 @@ pipeline {
         JIRA_SITE='JIRA'
         GIT_COMMIT_MSG = sh(script: 'git log -1 --oneline')
         GIT_COMMIT_AUTHOR = sh(script: 'git log --format="medium" -1 ${GIT_COMMIT}')
-        GIT_COMMIT_PRETTY = sh(script: 'git log -1 --pretty=%B')
+        GIT_COMMIT_PRETTY = sh(script: 'git log -1 --pretty=%B' , returnStdout: true).trim()
         // commitHash = checkout(scm).GIT_COMMIT?
         // sh "echo 'Commit hash is: ${commitHash}'"
     }
