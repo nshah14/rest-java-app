@@ -12,6 +12,8 @@ pipeline {
         // writeMavenPom().setVersion("4.1.2")
         NEW_VERSION = readMavenPom().getVersion()
         JIRA_SITE='JIRA'
+        // commitHash = checkout(scm).GIT_COMMIT?
+        // sh "echo 'Commit hash is: ${commitHash}'"
     }
     tools { 
         jdk 'jdk'
@@ -38,7 +40,7 @@ pipeline {
                 echo "Build release version is ${BUILD_RELEASE_VERSION}"
                 echo " is it snapshot ${IS_SNAPSHOT}"
                 echo " is GIT_TAG_COMMIT ${GIT_TAG_COMMIT}"
-               
+                sh "echo 'Commit hash is: ${GIT_COMMIT}'"
   
                
                  sh '''
@@ -82,10 +84,12 @@ pipeline {
 
                         // echo response.successful.toString()
                         // enscho response.data.toString()
-                        def transitions = jiraGetIssueTransitions idOrKey: 'TEST-5'
-                        echo transitions.data.toString()
-                        def transitionInput = [ transition: [ id: '31'] ]
-                        jiraTransitionIssue idOrKey: 'TEST-5', input: transitionInput, site: 'JIRA'
+                        
+                        
+                        // def transitions = jiraGetIssueTransitions idOrKey: 'TEST-5'
+                        // echo transitions.data.toString()
+                        // def transitionInput = [ transition: [ id: '31'] ]
+                        // jiraTransitionIssue idOrKey: 'TEST-5', input: transitionInput, site: 'JIRA'
                  }
             }
         }
