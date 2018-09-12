@@ -99,7 +99,7 @@ pipeline {
                                 def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = '${it}'"
                                 def issues = searchResults.data.issues
                                 for (i = 0; i <issues.size(); i++) {
-                                        def fixVersion =  jiraNewVersion version: [name: "new-fix-version-4.0",
+                                        def fixVersion =  jiraNewVersion version: [name: "new-fix-version-5.0",
                                                                         project: "TEST"]
                                         echo " version : "+fixVersion.data
                                         def testIssue = [fields: [fixVersions: [fixVersion.data]]]
