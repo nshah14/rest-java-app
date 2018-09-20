@@ -50,7 +50,7 @@ pipeline {
                
                  sh '''
                    
-                    mvn versions:set -DnewVersion=1.0.2
+                    mvn versions:set -DnewVersion=1.0.3
                     mvn clean install
 
                 ''' 
@@ -98,6 +98,9 @@ pipeline {
                                 println "Number ${it}"
                                 def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = '${it}'"
                                 def issues = searchResults.data.issues
+                                jiraComment(issueKey: "${it}",
+                                    body: " Project new  version is ${NEW_VERSION}"
+                                )
                                 // for (i = 0; i <issues.size(); i++) {
                                 //     def fixVersion =  version: [name: "new-fix-version-5.0",
                                 //                                     project: "TEST"]
@@ -113,6 +116,7 @@ pipeline {
                                 echo transitions.data.toString()
                                 def transitionInput = [ transition: [ id: '31'] ]
                                 jiraTransitionIssue idOrKey: "${it}", input: transitionInput, site: 'JIRA'
+                                
                             }
                         
                  }
