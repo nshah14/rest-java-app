@@ -47,17 +47,22 @@ pipeline {
                 // echo "author hash is: ${GIT_COMMIT_AUTHOR}"
                 echo "author hash is: ${GIT_COMMIT_PRETTY}"
   
-               
+                script{
+                    environment {
+                        NEW_VERSION = readMavenPom().getVersion()
+                        echo " Project new  version is ${NEW_VERSION}"
+                    }
+                }
                  sh '''
                    
-                    mvn versions:set -DnewVersion=1.0.3
+                    mvn versions:set -DnewVersion=NEW_VERSION
                     mvn clean install
 
                 ''' 
                 script{
                     environment {
                         NEW_VERSION = readMavenPom().getVersion()
-                        echo " Project new  version is ${NEW_VERSION}"
+                        echo " Project new  version in build is ${NEW_VERSION}"
                     }
                 }
             }
