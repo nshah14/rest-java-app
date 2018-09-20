@@ -55,7 +55,7 @@ pipeline {
                 }
                  sh '''
                    
-                    mvn versions:set -DnewVersion=NEW_VERSION
+                    mvn versions:set -DnewVersion=${NEW_VERSION}
                     mvn clean install
 
                 ''' 
