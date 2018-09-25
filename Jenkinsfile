@@ -46,7 +46,7 @@ pipeline {
                 echo "Commit msg is: ${GIT_COMMIT_MSG}"
                 // echo "author hash is: ${GIT_COMMIT_AUTHOR}"
                 echo "author hash is: ${GIT_COMMIT_PRETTY}"
-                echo "author hash is: ${GIT_COMMIT_PRETTY}"
+                
   
                 script{
                     environment {
