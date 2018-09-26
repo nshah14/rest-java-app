@@ -79,15 +79,20 @@ pipeline {
         stage('Create Jira Fix Version'){
             steps{
                 script{
-                        def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = 'TEST-3'"
-                        def issues = searchResults.data.issues
+                        
                         def fixVersion =  jiraNewVersion version: [name: "${VERSION}",
                                                                         project: "TEST"]
                        
                         "${GIT_COMMIT_PRETTY}".tokenize(",").each {
                             echo "Id is ${it}"
-                            def testIssue = [fields: [fixVersions: [fixVersion.data]]]
-                            response = jiraEditIssue idOrKey: "${it}".key, issue: testIssue
+                            def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey =  '${it}'"
+                            def issues = searchResults.data.issues
+                            
+                            for (i = 0; i <issues.size(); i++) {
+                               echo "key  is " issues[i].key
+                               def testIssue = [fields: [fixVersions: [fixVersion.data]]]
+                               response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
+                            }
                         }
                 }
             }
@@ -97,7 +102,7 @@ pipeline {
             steps{
                  script{
                         def serverInfo = jiraGetServerInfo()
-                        echo serverInfo.data.toString()
+                        echo "in Jira Stage"
                         // def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = 'TEST-3'"
                         // def issues = searchResults.data.issues
                         // for (i = 0; i <issues.size(); i++) {
