@@ -93,11 +93,13 @@ pipeline {
                             echo "searchVersion"
                            
                             for (i = 0; i <searchVersion.data.issues.size(); i++) {
+                                fixVersion= searchVersion.data.issues[i].fields.fixVersions
                                 versionId = searchVersion.data.issues[i].fields.fixVersions.id[0]
                             }
                             echo "version id "+versionId
+                            echo "fixversion  id "+fixVersion
                             // echo searchVersion.data.fixVersion.id
-                            fixVersion = jiraGetVersion version: [id: "${versionId}"]
+                            // fixVersion = jiraGetVersion version: [id: "${versionId}"]
                         }
                         "${GIT_COMMIT_PRETTY}".tokenize(",").each {
                             echo "Id is ${it}"
