@@ -88,7 +88,7 @@ pipeline {
                         catch(Exception e){
                             echo "version already exist re use the existing one"
                             
-                            def searchVersion = jiraJqlSearch jql: "fixVersion=1.7&maxResults=1"
+                            def searchVersion = jiraJqlSearch jql: "fixVersion=1.7"
                             echo searchVersion
                             echo searchVersion.data.fixVersion
                             echo searchVersion.data.fixVersion.id
