@@ -17,6 +17,7 @@ pipeline {
         GIT_COMMIT_PRETTY = sh(script: 'git log -1 --pretty=%B' , returnStdout: true).trim()
         // commitHash = checkout(scm).GIT_COMMIT?
         // sh "echo 'Commit hash is: ${commitHash}'"
+        
     }
     tools { 
         jdk 'jdk'
@@ -54,9 +55,9 @@ pipeline {
                         echo " Project new  version is ${NEW_VERSION}"
                     }
                 }
+                // mvn versions:set -DnewVersion=${NEW_VERSION}
                  sh '''
-                   
-                    mvn versions:set -DnewVersion=${NEW_VERSION}
+                    
                     mvn clean install
 
                 ''' 
@@ -68,7 +69,30 @@ pipeline {
                 }
             }
         }
-        
+        stage('Artifact To Nexus'){
+            steps{
+                sh '''
+                    mvn deploy
+                ''' 
+            }
+        }
+        stage('Create Jira Fix Version'){
+            steps{
+                script{
+                        def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = 'TEST-3'"
+                        def issues = searchResults.data.issues
+                        def fixVersion =  jiraNewVersion version: [name: "${VERSION}",
+                                                                        project: "TEST"]
+                        println "${GIT_COMMIT_PRETTY}".tokenize("-")
+                        "${GIT_COMMIT_PRETTY}".tokenize(",").each {
+                            
+                            def testIssue = [fields: [fixVersions: [fixVersion.data]]]
+                            response = jiraEditIssue idOrKey: "${it}".key, issue: testIssue
+                        }
+                }
+            }
+        }
+
         stage('JIRA') {
             steps{
                  script{
@@ -77,8 +101,8 @@ pipeline {
                         // def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = 'TEST-3'"
                         // def issues = searchResults.data.issues
                         // for (i = 0; i <issues.size(); i++) {
-                        //     def fixVersion =  jiraNewVersion version: [name: "new-fix-version-3.0",
-                        //                                                 project: "TEST"]
+                        //      def fixVersion =  jiraNewVersion version: [name: "new-fix-version-3.0",
+                        //                                                  project: "TEST"]
                         //     def testIssue = [fields: [fixVersions: [fixVersion.data]]]
                         //     response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
                         // }
@@ -105,7 +129,7 @@ pipeline {
                                 def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = '${it}'"
                                 def issues = searchResults.data.issues
                                 jiraComment(issueKey: "${it}",
-                                    body: " Project new  version is ${NEW_VERSION}"
+                                    body: " Project issue fix  version is ${VERSION}"
                                 )
                                 // for (i = 0; i <issues.size(); i++) {
                                 //     def fixVersion =  version: [name: "new-fix-version-5.0",
