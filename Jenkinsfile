@@ -108,7 +108,7 @@ pipeline {
                             echo "issue array size  is "+issues.size()
                             for (i = 0; i <issues.size(); i++) {
                                
-                               def testIssue = [fields: [fixVersions: [fixVersion.data]]]
+                               def testIssue = [fields: [fixVersions: [fixVersion]]]
                                response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
                             }
                         }
