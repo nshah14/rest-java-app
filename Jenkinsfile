@@ -87,11 +87,12 @@ pipeline {
                         }
                         catch(Exception e){
                             echo "version already exist re use the existing one"
-                            fixVersion = jiraEditVersion version: [name: "${VERSION}",project: "TEST"]
+                            
                             def searchVersion = jiraJqlSearch jql: "fixVersmaxResults=1&fields*all"
                             echo searchVersion
                             echo searchVersion.data.fixVersion
                             echo searchVersion.data.fixVersion.id
+                            fixVersion = jiraEditVersion version: [name: "${VERSION}",project: "TEST"]
                         }
                         "${GIT_COMMIT_PRETTY}".tokenize(",").each {
                             echo "Id is ${it}"
