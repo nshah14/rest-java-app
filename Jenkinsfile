@@ -11,6 +11,12 @@ pipeline {
         GIT_TAG_COMMIT = sh(script: 'git describe --tags --always', returnStdout: true).trim()
         // writeMavenPom().setVersion("4.1.2")
         NEW_VERSION = readMavenPom().getVersion()
+        JIRA_SITE='JIRA'
+        GIT_COMMIT_MSG = sh(script: 'git log -1 --oneline')
+        GIT_COMMIT_AUTHOR = sh(script: 'git log --format="medium" -1 ${GIT_COMMIT}')
+        GIT_COMMIT_PRETTY = sh(script: 'git log -1 --pretty=%B' , returnStdout: true).trim()
+        // commitHash = checkout(scm).GIT_COMMIT?
+        // sh "echo 'Commit hash is: ${commitHash}'"
     }
     tools { 
         jdk 'jdk'
@@ -37,23 +43,92 @@ pipeline {
                 echo "Build release version is ${BUILD_RELEASE_VERSION}"
                 echo " is it snapshot ${IS_SNAPSHOT}"
                 echo " is GIT_TAG_COMMIT ${GIT_TAG_COMMIT}"
-               
+                echo "Commit msg is: ${GIT_COMMIT_MSG}"
+                // echo "author hash is: ${GIT_COMMIT_AUTHOR}"
+                echo "author hash is: ${GIT_COMMIT_PRETTY}"
+                
   
-               
-                 sh '''
-                   
-                    mvn versions:set -DnewVersion=1.0.2
-                    mvn clean install
-
-                ''' 
                 script{
                     environment {
                         NEW_VERSION = readMavenPom().getVersion()
                         echo " Project new  version is ${NEW_VERSION}"
                     }
                 }
+                 sh '''
+                   
+                    mvn versions:set -DnewVersion=${NEW_VERSION}
+                    mvn clean install
+
+                ''' 
+                script{
+                    environment {
+                        NEW_VERSION = readMavenPom().getVersion()
+                        echo " Project new  version in build is ${NEW_VERSION}"
+                    }
+                }
             }
         }
+        
+        stage('JIRA') {
+            steps{
+                 script{
+                        def serverInfo = jiraGetServerInfo()
+                        echo serverInfo.data.toString()
+                        // def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = 'TEST-3'"
+                        // def issues = searchResults.data.issues
+                        // for (i = 0; i <issues.size(); i++) {
+                        //     def fixVersion =  jiraNewVersion version: [name: "new-fix-version-3.0",
+                        //                                                 project: "TEST"]
+                        //     def testIssue = [fields: [fixVersions: [fixVersion.data]]]
+                        //     response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
+                        // }
+
+                        // def testIssue = [fields: [ // id or key must present for project.
+                        // project: [id: '10000'],
+                        // summary: 'New JIRA Created from Jenkins.',
+                        // description: 'New JIRA Created from Jenkins.',
+                        // // id or name must present for issuetype.
+                        // //issuetype: [id: '3']
+                        // ]]
+
+                        // response = jiraEditIssue idOrKey: 'TEST-2', issue: testIssue
+
+                        // echo response.successful.toString()
+                        // enscho response.data.toString()
+                        
+               
+                        println "${GIT_COMMIT_PRETTY}".tokenize("-")
+                        "${GIT_COMMIT_PRETTY}".tokenize(",").each {
+
+
+                                println "Number ${it}"
+                                def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey = '${it}'"
+                                def issues = searchResults.data.issues
+                                jiraComment(issueKey: "${it}",
+                                    body: " Project new  version is ${NEW_VERSION}"
+                                )
+                                // for (i = 0; i <issues.size(); i++) {
+                                //     def fixVersion =  version: [name: "new-fix-version-5.0",
+                                //                                     project: "TEST"]
+                                //         // echo " version : "+fixVersion.data
+                                //     def testIssue = [fields: [fixVersions: [fixVersion.data]]]
+
+                                //     // def fixVersion = [name: "new-fix-version-3.0",
+                                //     //                                             project: "TEST"]
+                                //     // def testIssue = [fields: [fixVersions: [name: "new-fix-version-3.0", project: "TEST" ]]]
+                                //     response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
+                                // }
+                                def transitions = jiraGetIssueTransitions idOrKey: "${it}"
+                                echo transitions.data.toString()
+                                def transitionInput = [ transition: [ id: '41'] ]
+                                jiraTransitionIssue idOrKey: "${it}", input: transitionInput, site: 'JIRA'
+                                
+                            }
+                        
+                 }
+            }
+        }
+
 
         stage('Deploy To Integration') {
             when { tag "release-*" }
