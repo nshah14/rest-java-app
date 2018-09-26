@@ -97,7 +97,7 @@ pipeline {
                             }
                             echo "version id "+versionId
                             // echo searchVersion.data.fixVersion.id
-                            fixVersion = jiraEditVersion version: [id: versionId, project: "TEST"]
+                            fixVersion = jiraGetVersion version: [id: "${versionId}"]
                         }
                         "${GIT_COMMIT_PRETTY}".tokenize(",").each {
                             echo "Id is ${it}"
