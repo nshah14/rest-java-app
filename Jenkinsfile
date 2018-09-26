@@ -90,7 +90,10 @@ pipeline {
                             
                             def searchVersion = jiraJqlSearch jql: "fixVersion=1.7"
                             echo "searchVersion"
-                            echo searchVersion.data.issues.size()
+                            echo 
+                            for (i = 0; i <searchVersion.data.issues.size(); i++) {
+                                echo "issue key"+searchVersion.data.issues[i].key
+                            }
                             echo searchVersion.data.issues[0].fields.fixVersions.id
                             // echo searchVersion.data.fixVersion.id
                             fixVersion = jiraEditVersion version: [name: "${VERSION}",project: "TEST"]
