@@ -90,7 +90,7 @@ pipeline {
                             
                             def searchVersion = jiraJqlSearch jql: "fixVersion=1.7"
                             echo "searchVersion"
-                            echo 
+                           
                             for (i = 0; i <searchVersion.data.issues.size(); i++) {
                                 echo "issue key"+searchVersion.data.issues[i].key
                             }
