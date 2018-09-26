@@ -80,6 +80,7 @@ pipeline {
             steps{
                 script{
                     def fixVersion
+                    def versionId
                         try{
 
                             fixVersion =  jiraNewVersion version: [name: "${VERSION}",
@@ -92,11 +93,11 @@ pipeline {
                             echo "searchVersion"
                            
                             for (i = 0; i <searchVersion.data.issues.size(); i++) {
-                                echo "version "+searchVersion.data.issues[i].fields.fixVersions.id
+                                versionId = searchVersion.data.issues[i].fields.fixVersions.id
                             }
-                            echo searchVersion.data.issues[0].fields.fixVersions.id
+                            echo "version id "+versionId
                             // echo searchVersion.data.fixVersion.id
-                            fixVersion = jiraEditVersion version: [name: "${VERSION}",project: "TEST"]
+                            fixVersion = jiraEditVersion version: [id: versionId, project: "TEST"]
                         }
                         "${GIT_COMMIT_PRETTY}".tokenize(",").each {
                             echo "Id is ${it}"
