@@ -93,7 +93,7 @@ pipeline {
                             echo "searchVersion"
                            
                             for (i = 0; i <searchVersion.data.issues.size(); i++) {
-                                fixVersion= searchVersion.data.issues[i].fields.fixVersions
+                                fixVersion= searchVersion.data.issues[i].fields.fixVersions[0]
                                 versionId = searchVersion.data.issues[i].fields.fixVersions.id[0]
                             }
                             echo "version id "+versionId
