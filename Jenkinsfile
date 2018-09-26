@@ -87,7 +87,7 @@ pipeline {
                         }
                         catch(Exception e){
                             echo "version already exist re use the existing one"
-                            fixVersion =  version: [name: "${VERSION}",project: "TEST"]
+                            fixVersion = jiraEditVersion version: [name: "${VERSION}",project: "TEST"]
                            
                         }
                         "${GIT_COMMIT_PRETTY}".tokenize(",").each {
