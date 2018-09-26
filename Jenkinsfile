@@ -79,15 +79,16 @@ pipeline {
         stage('Create Jira Fix Version'){
             steps{
                 script{
+                    def fixVersion
                         try{
 
-                            def fixVersion =  jiraNewVersion version: [name: "${VERSION}",
+                            fixVersion =  jiraNewVersion version: [name: "${VERSION}",
                                                                         project: "TEST"]
                         }
                         catch(Exception e){
                             echo "version already exist re use the existing one"
-                            def fixVersion =  jiraGetVersion version: [name: "${VERSION}",
-                                                                        project: "TEST"]
+                            fixVersion =  version: [name: "${VERSION}",project: "TEST"]
+                           
                         }
                         "${GIT_COMMIT_PRETTY}".tokenize(",").each {
                             echo "Id is ${it}"
