@@ -81,10 +81,13 @@ pipeline {
                 script{
                     def fixVersion
                     def versionId
+                    def fixNewVersion
                         try{
 
-                            fixVersion =  jiraNewVersion version: [name: "${VERSION}",
+                            fixNewVersion =  jiraNewVersion version: [name: "${VERSION}",
                                                                         project: "TEST"]
+                            fixVersion = fixNewVersion.data
+
                         }
                         catch(Exception e){
                             echo "version already exist re use the existing one"
