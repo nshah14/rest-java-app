@@ -89,7 +89,7 @@ pipeline {
                             echo "version already exist re use the existing one"
                             
                             def searchVersion = jiraJqlSearch jql: "fixVersion=1.7"
-                            echo searchVersion
+                            echo "searchVersion"
                             echo searchVersion.data.fixVersion
                             echo searchVersion.data.fixVersion.id
                             fixVersion = jiraEditVersion version: [name: "${VERSION}",project: "TEST"]
