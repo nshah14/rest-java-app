@@ -83,9 +83,9 @@ pipeline {
                         def issues = searchResults.data.issues
                         def fixVersion =  jiraNewVersion version: [name: "${VERSION}",
                                                                         project: "TEST"]
-                        println "${GIT_COMMIT_PRETTY}".tokenize("-")
+                       
                         "${GIT_COMMIT_PRETTY}".tokenize(",").each {
-                            
+                            echo "Id is ${it}"
                             def testIssue = [fields: [fixVersions: [fixVersion.data]]]
                             response = jiraEditIssue idOrKey: "${it}".key, issue: testIssue
                         }
