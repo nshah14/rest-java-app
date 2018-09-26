@@ -87,9 +87,9 @@ pipeline {
                             echo "Id is ${it}"
                             def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey =  '${it}'"
                             def issues = searchResults.data.issues
-                            
+                            echo "issue array size  is "+issues.size()
                             for (i = 0; i <issues.size(); i++) {
-                               echo "key  is " issues[i].key
+                               
                                def testIssue = [fields: [fixVersions: [fixVersion.data]]]
                                response = jiraEditIssue idOrKey: issues[i].key, issue: testIssue
                             }
