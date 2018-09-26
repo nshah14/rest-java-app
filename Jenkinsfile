@@ -79,10 +79,16 @@ pipeline {
         stage('Create Jira Fix Version'){
             steps{
                 script{
-                        
-                        def fixVersion =  jiraNewVersion version: [name: "${VERSION}",
+                        try{
+
+                            def fixVersion =  jiraNewVersion version: [name: "${VERSION}",
                                                                         project: "TEST"]
-                       
+                        }
+                        catch(Exception e){
+                            echo "version already exist re use the existing one"
+                            def fixVersion =  jiraGetVersion version: [name: "${VERSION}",
+                                                                        project: "TEST"]
+                        }
                         "${GIT_COMMIT_PRETTY}".tokenize(",").each {
                             echo "Id is ${it}"
                             def searchResults = jiraJqlSearch jql: "project = TEST AND issuekey =  '${it}'"
@@ -149,7 +155,7 @@ pipeline {
                                 // }
                                 def transitions = jiraGetIssueTransitions idOrKey: "${it}"
                                 echo transitions.data.toString()
-                                def transitionInput = [ transition: [ id: '41'] ]
+                                def transitionInput = [ transition: [ id: '31'] ]
                                 jiraTransitionIssue idOrKey: "${it}", input: transitionInput, site: 'JIRA'
                                 
                             }
