@@ -45,7 +45,7 @@ pipeline {
                 echo " is it snapshot ${IS_SNAPSHOT}"
                 echo " is GIT_TAG_COMMIT ${GIT_TAG_COMMIT}"
                 echo "Commit msg is: ${GIT_COMMIT_MSG}"
-                // echo "author hash is: ${GIT_COMMIT_AUTHOR}"
+                echo "author hash is: ${GIT_COMMIT_AUTHOR}"
                 echo "author hash is: ${GIT_COMMIT_PRETTY}"
                 
   
